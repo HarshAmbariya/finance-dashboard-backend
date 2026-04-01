@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: finance-dashboard-backend
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/finance_db
+    username: postgres
+    password: Password
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update     # IMPORTANT for development
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true

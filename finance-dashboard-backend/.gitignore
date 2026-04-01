@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 🔐 Sensitive configs
+src/main/resources/application.yml
+src/main/resources/application.properties
+
+# 🔐 Environment files
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# OS
+Thumbs.db

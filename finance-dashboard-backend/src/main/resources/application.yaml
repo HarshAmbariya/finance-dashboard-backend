@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/finance_db
     username: postgres
-    password: Password
+    password: postgres
 
   jpa:
     show-sql: true
@@ -16,3 +16,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
+jwt:
+  secret: 8Zt8Mk479xG69f77ZuImKxC+J4UmzgEjjH9kuVryRxU=
+  expiration: 36000000

@@ -1,0 +1,12 @@
+opencollection: 1.0.0
+info:
+  name: "zorvyn"
+  type: workspace
+
+collections:
+  - name: "registerViewer"
+    path: "collections/registerViewer"
+
+specs:
+
+docs: ''

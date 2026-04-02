@@ -1,0 +1,19 @@
+info:
+  name: updateUserStatus
+  type: http
+  seq: 4
+
+http:
+  method: PATCH
+  url: http://localhost:8080/api/v1/users/{{id}}/status?active=false
+  params:
+    - name: active
+      value: "false"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

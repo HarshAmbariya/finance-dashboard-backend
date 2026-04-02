@@ -6,6 +6,8 @@ info:
 collections:
   - name: "registerViewer"
     path: "collections/registerViewer"
+  - name: "User Controller"
+    path: "collections/User Controller"
 
 specs:
 

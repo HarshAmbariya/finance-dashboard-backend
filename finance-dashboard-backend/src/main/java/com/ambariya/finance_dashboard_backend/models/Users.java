@@ -19,4 +19,6 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private boolean active = true;
 }

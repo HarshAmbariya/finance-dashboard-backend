@@ -6,6 +6,14 @@ info:
 http:
   method: POST
   url: http://localhost:8080/api/v1/auth/register/admin
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Harsh Admin",
+        "email": "admin@gmail.com",
+        "password": "123456"
+      }
   auth: inherit
 
 settings:

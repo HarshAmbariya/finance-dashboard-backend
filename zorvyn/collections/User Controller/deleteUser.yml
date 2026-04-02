@@ -6,7 +6,9 @@ info:
 http:
   method: DELETE
   url: http://localhost:8080/api/v1/users/{{id}}
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInN1YiI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTc3NTExNDIxNCwiZXhwIjoxNzc1MTUwMjE0fQ.qduPjbHjpzhYPCKkOa38Gkcg7LFqNLsLT3EeNDMI-qo
 
 runtime:
   variables:

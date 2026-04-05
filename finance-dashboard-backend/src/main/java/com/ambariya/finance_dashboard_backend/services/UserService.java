@@ -1,14 +1,17 @@
 package com.ambariya.finance_dashboard_backend.services;
 
 
+import com.ambariya.finance_dashboard_backend.dto.PageResponse;
 import com.ambariya.finance_dashboard_backend.dto.UserResponseDTO;
 import com.ambariya.finance_dashboard_backend.dto.UserUpdateDTO;
 import com.ambariya.finance_dashboard_backend.models.Users;
 import com.ambariya.finance_dashboard_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Service
@@ -17,11 +20,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findByActiveTrue()
-                .stream()
-                .map(this::mapToDTO)
-                .toList();
+    public PageResponse<UserResponseDTO> getAllUsers(Pageable pageable) {
+
+        Page<UserResponseDTO> page = userRepository.findByActiveTrue(pageable)
+                .map(this::mapToDTO);
+
+        return new PageResponse<>(page);
     }
 
     public UserResponseDTO getUserById(Long id) {
@@ -79,12 +83,12 @@ public class UserService {
     }
 
     private UserResponseDTO mapToDTO(Users user) {
-        UserResponseDTO dto = new UserResponseDTO();
-        dto.setId(user.getId());
-        dto.setName(user.getName());
-        dto.setEmail(user.getEmail());
-        dto.setRole(user.getRole());
-        dto.setActive(user.isActive());
-        return dto;
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .active(user.isActive())
+                .build();
     }
 }

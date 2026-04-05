@@ -1,5 +1,6 @@
 package com.ambariya.finance_dashboard_backend.services;
 
+import com.ambariya.finance_dashboard_backend.dto.PageResponse;
 import com.ambariya.finance_dashboard_backend.dto.RecordDTO;
 import com.ambariya.finance_dashboard_backend.dto.RecordType;
 import com.ambariya.finance_dashboard_backend.models.FinancialRecord;
@@ -7,9 +8,11 @@ import com.ambariya.finance_dashboard_backend.models.Users;
 import com.ambariya.finance_dashboard_backend.repository.FinancialRecordRepository;
 import com.ambariya.finance_dashboard_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,28 +38,21 @@ public class RecordService {
         return mapToDTO(recordRepository.save(record));
     }
 
-    public List<RecordDTO> getRecords(RecordType type, String category,
-                                      LocalDate startDate, LocalDate endDate) {
+    public PageResponse<RecordDTO> getRecords(RecordType type,
+                                              String category,
+                                              LocalDate startDate,
+                                              LocalDate endDate,
+                                              Pageable pageable) {
 
         Users user = getCurrentUserEntity();
 
-        if (type != null) {
-            return recordRepository.findByUserAndType(user, type)
-                    .stream().map(this::mapToDTO).toList();
-        }
+        Page<FinancialRecord> records = recordRepository.findRecordsWithFilters(
+                user, type, category, startDate, endDate, pageable
+        );
 
-        if (category != null) {
-            return recordRepository.findByUserAndCategory(user, category)
-                    .stream().map(this::mapToDTO).toList();
-        }
+        Page<RecordDTO> dtoPage = records.map(this::mapToDTO);
 
-        if (startDate != null && endDate != null) {
-            return recordRepository.findByUserAndDateBetween(user, startDate, endDate)
-                    .stream().map(this::mapToDTO).toList();
-        }
-
-        return recordRepository.findByUser(user)
-                .stream().map(this::mapToDTO).toList();
+        return new PageResponse<>(dtoPage);
     }
 
     public RecordDTO updateRecord(Long id, RecordDTO dto) {

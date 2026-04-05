@@ -80,7 +80,7 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
 jwt.secret=your_jwt_secret_key
-jwt.expiration=86400000
+jwt.expiration=3600
 ```
 
 ### 3. Build and Run

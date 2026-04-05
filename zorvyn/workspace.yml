@@ -12,6 +12,8 @@ collections:
     path: "collections/Dashboard"
   - name: "Record"
     path: "collections/Record"
+  - name: "test"
+    path: "collections/test"
 
 specs:
 

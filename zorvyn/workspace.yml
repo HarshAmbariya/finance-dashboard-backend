@@ -8,6 +8,10 @@ collections:
     path: "collections/registerViewer"
   - name: "User Controller"
     path: "collections/User Controller"
+  - name: "Dashboard"
+    path: "collections/Dashboard"
+  - name: "Record"
+    path: "collections/Record"
 
 specs:
 

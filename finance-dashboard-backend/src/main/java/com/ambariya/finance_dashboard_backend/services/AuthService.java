@@ -44,6 +44,7 @@ public class AuthService {
 
         return AuthResponse.builder()
                 .message(role + " registered successfully")
+                .token(token)
                 .build();
     }
 
@@ -51,6 +52,10 @@ public class AuthService {
 
         Users user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.isActive()) {
+            throw new RuntimeException("User account is deactivated");
+        }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");

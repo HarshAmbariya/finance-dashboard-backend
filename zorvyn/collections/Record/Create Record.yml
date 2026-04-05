@@ -1,0 +1,27 @@
+info:
+  name: Create Record
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/v1/records
+  body:
+    type: json
+    data: |-
+      {
+        "amount": 2000,
+        "type": "EXPENSE",
+        "category": "TRANSPORT",
+        "date": "2026-04-12",
+        "note": "Fuel"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInN1YiI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTc3NTQwMzYwOSwiZXhwIjoxNzc1NDM5NjA5fQ.tf_penZPTAt1hA9ZiynRkFlr8pivM9GqBdC8dVdZVfo
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

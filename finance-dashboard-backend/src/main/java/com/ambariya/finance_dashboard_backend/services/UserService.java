@@ -18,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findAll()
+        return userRepository.findByActiveTrue()
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
@@ -46,7 +46,10 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        Users user = getUserEntity(id);
+
+        user.setActive(false);
+        userRepository.save(user);
     }
 
     public UserResponseDTO getCurrentUser() {
@@ -57,12 +60,22 @@ public class UserService {
         Users user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        if (!user.isActive()) {
+            throw new RuntimeException("User is deactivated");
+        }
+
         return mapToDTO(user);
     }
 
     private Users getUserEntity(Long id) {
-        return userRepository.findById(id)
+        Users user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.isActive()) {
+            throw new RuntimeException("User is deactivated");
+        }
+
+        return user;
     }
 
     private UserResponseDTO mapToDTO(Users user) {
